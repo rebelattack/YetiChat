@@ -66,8 +66,9 @@ class Shoutbox {
             if($this->all_shout[0]['message'] != $message)
             {
                 $database->postNewShout($message);
+                return 1;
             }
-                        
+            return -1;
         }
         
         public function getNbShout()

@@ -57,14 +57,13 @@ function getshout()
     var  formData = 'a=getnewshout&i='+thisItem;  //Name value Pair
     $.ajax({
         url : "ajax.php",
-        type: "GET",
+        type: "POST",
         data : formData,
         success: function(data, textStatus, jqXHR)
         {
             
             if(data != '-1')
-            {
-                
+            {                
                 var htmlString = data + $('div.chat').html() ;
                 $('div.chat').html(htmlString);
 

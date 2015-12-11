@@ -42,6 +42,24 @@ class Database {
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return $result['username'];
     }
+    
+    public function getUserStatut($user_id) {
+
+        $query = $this->sql->prepare("SELECT `statut` FROM `".DB_PREFIX."users` WHERE `id` = :uid LIMIT 1;");
+        $query->bindParam(':uid', $user_id);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        return $result['statut'];
+    }
+    
+    public function getUsersStatut() {
+
+        $query = $this->sql->prepare("SELECT * FROM `".DB_PREFIX."users` ORDER BY `statut` DESC;");
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    
     /* ====================================================================== */
     /* ============================= SHOUTBOX =============================== */
     /* ====================================================================== */
@@ -65,6 +83,12 @@ class Database {
         }
     }
     
+    public function updateStatut($uid, $statut) {
+            $query = $this->sql->prepare("UPDATE `".DB_PREFIX."users` SET `statut` = :statut WHERE `id` = :uid;");
+            $query->bindParam(":statut", $statut);
+            $query->bindParam(":uid", $uid);
+            $query->execute();
+    }
     
     
     /* ====================================================================== */
@@ -77,7 +101,16 @@ class Database {
             $query->bindParam(":sessid", $sessid);
             $query->execute();
         }
+        
+        public function getSession($uid) {
 
+            $query = $this->sql->prepare("SELECT * FROM `".DB_PREFIX."users_session` WHERE `uid` = :uid ORDER BY `id` DESC LIMIT 1;");
+            $query->bindParam(":uid", $uid);
+            $query->execute();
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        
         public function createSession($uid, $sessid) {
             $query = $this->sql->prepare("INSERT INTO `".DB_PREFIX."users_session` (`id` ,`uid` ,`start` ,`end` ,`sessid`) VALUES (NULL , :uid, :time_start, :time_end, :sessid);");
             $time_start = time();

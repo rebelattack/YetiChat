@@ -184,7 +184,7 @@ class Session {
             $_SESSION['username'] = $user_infos['username'];
             $_SESSION['sess_id'] = $sessid;
             $_SESSION['sess_end'] = $database->createSession($user_infos['id'],$sessid);
-
+            
             header("Location: index.php");           
         }
     }
@@ -251,6 +251,8 @@ class Session {
        
         return false;
     }
+    
+    
     
     private function generateRandStr($length){
         $randstr = "";
