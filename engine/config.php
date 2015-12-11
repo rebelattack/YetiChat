@@ -9,8 +9,8 @@ error_reporting(E_ALL);
 
 // SQL Credentials 
     define('SQL_DNS', 'mysql:host=127.0.0.1;dbname=BBB');
-    define('SQL_USER', 'yourusername');                                                 // MYSQL username
-    define('SQL_PASS', 'yourpassword');                                                 // MYSQL password
+    define('SQL_USER', '');                                                 // MYSQL username
+    define('SQL_PASS', '');                                                 // MYSQL password
     define('DB_PREFIX','');                                                  // Tables Prefix
 
 

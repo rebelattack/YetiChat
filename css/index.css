@@ -26,7 +26,19 @@ div.users {
 }
 
 
-
+div.files {
+    position:absolute;
+    width:225px;
+    right:0px;
+    top:260px;
+    bottom:120px;
+    padding:10px;
+    background-color: rgba(0, 0, 0, 0.5); 
+    color:rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    overflow:auto;
+    
+}
 div.input-chat input {
     display:inline-block;
 }

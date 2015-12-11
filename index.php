@@ -57,7 +57,10 @@ and open the template in the editor.
 
                             $users->getAllStatut();
                     ?>
-                    </div>                    
+                    </div>
+                    <div class="files">
+                        [debug]
+                    </div>
                     <div class="input-chat">
                         <textarea class="input-large"/></textarea><input type="submit" class="submit-btn" value="Submit">
                     </div>

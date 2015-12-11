@@ -35,6 +35,12 @@ class Session {
         
     }    
     
+    /**
+     * Fonction qui gère l'inscription
+     * 
+     * @global type $database
+     * @global type $form
+     */
     private function register() {
         global $database, $form;
         
@@ -111,6 +117,12 @@ class Session {
             }        
     }
     
+    /**
+     * Fonction qui gère l'activation par code
+     * 
+     * @global type $database
+     * @global type $form
+     */
     private function activate() {
         global $database, $form;
         
@@ -143,6 +155,13 @@ class Session {
             }
     }
     
+    
+    /**
+     * Fonction qui permet la connexion et vérifie la combinaison user/pwd
+     * @global type $form
+     * @global type $database
+     * @global type $session
+     */
     private function login() {
         global $form,$database,$session;
         
@@ -189,6 +208,12 @@ class Session {
         }
     }
     
+    
+    /**
+     * Fonction de déconnexion
+     * 
+     * @global type $database
+     */
     public function logout() {               
         global $database;
         if($this->isLogged) {
@@ -199,7 +224,12 @@ class Session {
             $this->isLogged = $this->checkSession();
         }
     }
-        
+    
+    /**
+     * Vérifie le format d'une adresse mail
+     * @param type $email
+     * @return boolean
+     */
     private function checkEmail($email) {
         $regexp="/^[a-z0-9]+([_\\.-][a-z0-9]+)*@([a-z0-9]+([\.-][a-z0-9]+)*)+\\.[a-z]{2,}$/i";
         
@@ -208,7 +238,9 @@ class Session {
         }
         return true;    
     }
-    
+    /**
+     * Vérifie que l'utilisateur peut accèder à cette url
+     */
     private function checkUrl() {
         $explode = explode("/", $_SERVER['SCRIPT_NAME']);
         $i = count($explode) - 1;
@@ -229,6 +261,11 @@ class Session {
         
     }
     
+    /**
+     * Vérifie le statut de la session
+     * @global type $database
+     * @return boolean
+     */
     private function checkSession() {
         
         global $database;
@@ -253,7 +290,11 @@ class Session {
     }
     
     
-    
+    /**
+     * genère une chaine de caractère aléatoire
+     * @param type $length
+     * @return type
+     */
     private function generateRandStr($length){
         $randstr = "";
         for($i=0; $i<$length; $i++) {

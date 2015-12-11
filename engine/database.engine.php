@@ -20,12 +20,12 @@ class Database {
 	$this->sql = new PDO( SQL_DNS, SQL_USER, SQL_PASS, $options );       
     }
     
-    
+
     public function getAllShout()
     {
         $time = time() - SHOUT_TIME_LIMIT;
 
-        $query = $this->sql->prepare("SELECT * FROM `".DB_PREFIX."chat` WHERE `timestamp` > :time ORDER by `timestamp` DESC");
+        $query = $this->sql->prepare("SELECT * FROM `".DB_PREFIX."chat` WHERE `timestamp` > :time ORDER by `timestamp` ASC");
         $query->bindParam(':time', $time);
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);

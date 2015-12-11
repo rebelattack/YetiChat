@@ -18,6 +18,11 @@ class Users {
     // 2 orange : active in last 5mn
     // 1 red : busy
     // 0 black : offline
+    /**
+     * Recupère tous les statut de chaque utilisateurs et les affiches
+     * @global type $database
+     * @global type $session
+     */
     public function getAllStatut(){
         global $database,$session;
         
@@ -33,6 +38,13 @@ class Users {
         }       
     }
     
+    /**
+     * Vérifie que la session de l'utilisateur est toujours active
+     * 
+     * @global type $database
+     * @param type $uid
+     * @return boolean
+     */
     private function checkUserSession($uid){
         global $database;
         $session = $database->getSession($uid);
@@ -46,11 +58,22 @@ class Users {
         return true;
     }
     
+    /**
+     * Met à jour le statut
+     * @global type $database
+     * @param type $statut
+     */
     public function updateStatut($statut){
         global $database;
         $database->updateStatut($_SESSION['id'], $statut);
     }
     
+    
+    /**
+     * Affiche la couleur de la barre de statut
+     * @param type $statut
+     * @return string
+     */
     private function getColor($statut){
         if($statut == 3){
             return "green";

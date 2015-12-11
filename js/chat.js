@@ -43,6 +43,10 @@ $(".submit-btn").click(function(){
             data : formData,
             success: function(data, textStatus, jqXHR)
             {
+                if(data != -1 && data != 1){
+                    var htmlString = data + $('div.chat').html() ;
+                    $('div.chat').html(htmlString);
+                }
                 getshout();
                 $( 'textarea.input-large' ).val('');
                 $( 'textarea.input-large' ).focus();
@@ -64,7 +68,7 @@ function getshout()
             
             if(data != '-1')
             {                
-                var htmlString = data + $('div.chat').html() ;
+                var htmlString = $('div.chat').html() + data;
                 $('div.chat').html(htmlString);
 
                 var total_item = parseInt(thisItem) + 1;
