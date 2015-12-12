@@ -40,24 +40,31 @@ class Cmd {
 	}
     }
     
-    public function CPUutilization(){
+    private function CPUparse(){
         exec("cat /proc/stat",$data);
         $data = $data[0];
         $parts = explode(" ",$data);
         
         $new_total = $parts[1]+$parts[2]+$parts[3]+$parts[4]+$parts[5]+$parts[6]+$parts[7]+$parts[8]+$parts[9]+$parts[10]+1;
         $new_idle = $parts[4];
-        file_put_contents("engine/cache/cpu.cache", $new_idle." ".$new_total);
         
+        return array("idle"=>$new_idle,"total"=>$new_total);
+    }
+    
+    public function CPUutilization(){
         
-        $idleDelta = $new_idle - $this->cpu_idle;
-        $totalDelta = $new_total - $this->cpu_total;
-
+        $first = $this->CPUparse();
+        sleep(1);
+        $second = $this->CPUparse();
+        
+        $idleDelta = abs($first["idle"] - $second["idle"]);
+        $totalDelta = abs($first["total"] - $second["total"]);
         $cpu_usage = (($idleDelta * 100.0) / $totalDelta + 0.5);
         
         return round($cpu_usage,2);
     }
     
+   
     public function RAMutilization(){
         exec("free -tl", $data);
         $raw_ram_data = explode(" ",$data[1]);
@@ -79,8 +86,8 @@ class Cmd {
         return $ram_usage.' '.$swap_usage;
     }
     
-    public function bandwithUsage(){
-        exec("cat /proc/net/dev", $data);
+    private function bandwidthParse(){
+         exec("cat /proc/net/dev", $data);
         $raw_data = explode(" ",$data[2]);
         $data = array();
         foreach ($raw_data as $d){
@@ -91,12 +98,20 @@ class Cmd {
         
         $new_net_rx = $data[1];
         $new_net_tx = $data[9];        
-        $new_net_time = microtime(true);        
-        file_put_contents("engine/cache/network.cache", $new_net_rx." ".$new_net_tx." ".$new_net_time);
+        $new_net_time = microtime(true);    
         
-        $deltaT = $new_net_time - $this->net_time +1;
-        $deltaRx = $new_net_rx - $this->net_rx;
-        $deltaTx = $new_net_tx - $this->net_tx;
+        return array("tx"=>$new_net_tx,"rx"=>$new_net_rx,"time"=>$new_net_time);
+    }
+    
+    public function bandwithUsage(){
+           
+        $first = $this->bandwidthParse();
+        sleep(1);
+        $second = $this->bandwidthParse();       
+
+        $deltaT = $first["time"] - $second["time"];
+        $deltaRx = $first["rx"] - $second["rx"];
+        $deltaTx = $first["tx"] - $second["tx"];
         
         $speedRx = round($deltaRx / ($deltaT*1024),2);
         $speedTx = round($deltaTx / ($deltaT*1024),2);
