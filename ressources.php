@@ -28,46 +28,36 @@ and open the template in the editor.
         <link href="css/base.css" rel="stylesheet" type="text/css">
         <link href="css/index.css" rel="stylesheet" type="text/css">
         <script src="js/jquery.js"></script>
-        <script src="js/chat.js"></script>
-        <script src="js/statut.js"></script>
+        <script src="js/smoothie.js"></script>
+        <script src="js/chart.js"></script>
     </head>
     <body>
-        
-    	<div id="wrapper">
+        <div id="wrapper">
             <div id="header">
                 <?php include_once("engine/templates/header.php"); ?>
             </div>
             
     		<div id="content">
-                    <?php
-                        include_once('engine/shoutbox.engine.php');
-                            $shoutbox = new Shoutbox();
 
-                            $nbshout = $shoutbox->getNbShout();
-                    ?>
-                    <div class="chat" data-nb="<?php echo $nbshout;?>">
-                        <?php
-                            echo $shoutbox->getAllShout();
-                        ?>
-                    </div>
-                    <div class="users">
-                        <?php
-                        include_once('engine/users.engine.php');
-                            $users = new Users();
-                            
-                            $users->getAllStatut();
-                    ?>
+                    <div class="monitor">
+                        <span>CPU usage :</span><br>
+                        <canvas id="cpuusage" width="225" height="41"></canvas><br>
+                        <span>RAM & SWAP usage :</span><br>
+                        <canvas id="ramusage" width="225" height="41"></canvas><br>
+                        <span>Upload & Download usage :</span><br>
+                        <canvas id="bandwidthusage" width="225" height="41"></canvas><br>
+                        <span style="border-left:3px solid #d35400;">CPU %</span><br>
+                        <span style="border-left:3px solid #2980b9;">RAM %</span>
+                        <span style="border-left:3px solid #27ae60;">SWAP %</span><br>
+                        <span style="border-left:3px solid #16a085;">Download Ko/s</span>
+                        <span style="border-left:3px solid #8e44ad;">Upload Ko/s</span>
                     </div>
                     
-                    <div class="input-chat">
-                        <textarea class="input-large"/></textarea><input type="submit" class="submit-btn" value="Submit">
-                    </div>
                 </div>
                 
     		<div id="footer"> 
                     <?php include_once("engine/templates/footer.php"); ?>
                 </div>
     	</div>
-    
     </body>
 </html>

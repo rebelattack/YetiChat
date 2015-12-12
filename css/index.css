@@ -27,11 +27,9 @@ div.users {
 
 
 div.monitor {
-    position:absolute;
-    width:225px;
-    right:0px;
-    top:260px;
-    bottom:120px;
+    width:500px;
+    margin:0 auto;
+    margin-top:10px;
     padding:10px;
     background-color: rgba(0, 0, 0, 0.5); 
     color:rgba(255, 255, 255, 0.7);
