@@ -7,7 +7,8 @@ include_once('engine/database.engine.php');
     $database = new Database();
 include_once('engine/shoutbox.engine.php');
     $shoutbox = new Shoutbox();
-    
+include_once('engine/cmd.engine.php');
+    $cmd = new Cmd();    
     
 
 if(@$_POST['a'] == 'getstatus')
@@ -46,6 +47,14 @@ if(@$_POST['a'] == 'postnewshout' && @$_POST['m'] != "")
     $message = trim(htmlspecialchars(@$_POST['m']));
     echo $shoutbox->postShout($message);
 }
+
+if(@$_GET['a'] == 'getUsage'){    
+	$cpu = $cmd->CPUutilization();
+        $ram = $cmd->RAMutilization();            
+        $bandwidth = $cmd->bandwithUsage();
+        echo $cpu.' '.$ram.' '.$bandwidth;
+}
+
 
 
 ?>
